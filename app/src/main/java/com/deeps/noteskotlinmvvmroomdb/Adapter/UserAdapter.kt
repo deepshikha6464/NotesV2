@@ -27,7 +27,10 @@ class UserAdapter(private val context: Context,private var userList:ArrayList<Us
     override fun getItemCount(): Int = userList.size
 
 
-
+fun setData(userList:ArrayList<User>){
+    this.userList=userList
+    notifyDataSetChanged()
+}
     inner class userViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val name:TextView=itemView.findViewById(R.id.name)

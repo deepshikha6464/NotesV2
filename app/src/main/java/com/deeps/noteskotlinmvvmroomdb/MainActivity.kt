@@ -10,6 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.deeps.noteskotlinmvvmroomdb.Adapter.UserAdapter
+import com.deeps.noteskotlinmvvmroomdb.Model.User
 import com.deeps.noteskotlinmvvmroomdb.ViewModel.UserviewModel
 
 class MainActivity : AppCompatActivity()
@@ -21,11 +25,20 @@ class MainActivity : AppCompatActivity()
     private lateinit var name:EditText
     private lateinit var age:EditText
     private lateinit var dialog:AlertDialog
+    private lateinit var recyclerView:RecyclerView
+    private lateinit var userAdapter:UserAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(UserviewModel::class.java)
         val fab: View = findViewById(R.id.fab)
+        recyclerView = findViewById(R.id.recyclerView)
+        userAdapter = UserAdapter(this, ArrayList<User>())
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager=LinearLayoutManager(this@MainActivity)
+            adapter=userAdapter
+        }
 
         fab.setOnClickListener { view->
             openDialog()
