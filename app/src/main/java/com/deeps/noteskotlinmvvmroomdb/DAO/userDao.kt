@@ -9,11 +9,13 @@ import androidx.room.Query
 import com.deeps.noteskotlinmvvmroomdb.Model.User
 
 @Dao
-interface userDao {
+ interface userDao {
 
 //    insert method decleration
     @Insert( onConflict = OnConflictStrategy.REPLACE)
-     suspend fun insertUser(user:User)              // suspend as we are working with courtitens by which insert will work in background thread
+     suspend fun insertUser(user:User) {
+
+     }             // suspend as we are working with courtitens by which insert will work in background thread
 
 //    get method
     @Query("SELECT * from user ORDER BY id ASC")
