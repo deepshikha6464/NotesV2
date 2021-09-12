@@ -32,13 +32,14 @@
             android:textAppearance="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"/>
 
         <Button
+            android:id="@+id/save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SAVE"
             android:layout_margin="8dp"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:backgroundTint="@drawable/item_colour"/>
+          />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -2,15 +2,66 @@ package com.deeps.noteskotlinmvvmroomdb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.deeps.noteskotlinmvvmroomdb.ViewModel.UserviewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()
+{
 
     lateinit var viewModel:UserviewModel
+    private lateinit var builder:AlertDialog.Builder
+    private lateinit var save: Button
+    private lateinit var name:EditText
+    private lateinit var age:EditText
+    private lateinit var dialog:AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(UserviewModel::class.java)
+        val fab: View = findViewById(R.id.fab)
+
+        fab.setOnClickListener { view->
+            openDialog()
+        }
     }
+
+    private fun openDialog() {
+                builder=AlertDialog.Builder(this)
+        val itemView:View = LayoutInflater.from(applicationContext).inflate(R.layout.dialogue,null)
+        dialog=builder.create()
+        dialog.setView(itemView)
+        name=itemView.findViewById(R.id.name1)
+        age=itemView.findViewById(R.id.age1)
+        save=itemView.findViewById(R.id.save)
+        save.setOnClickListener { view->
+
+            saveDataIntoDB()
+        }
+        dialog.show()
+
+    }
+
+    private fun saveDataIntoDB()
+    {
+        val getname= name.text.toString().trim()
+        val getage= age.text.toString().trim()
+
+        if(!TextUtils.isEmpty(getname)&&!TextUtils.isEmpty(getage)) {
+
+        } else{
+                       Toast.makeText(applicationContext,"Please enter text",Toast.LENGTH_SHORT).show()
+                       dialog.dismiss()
+            }
+    }
+
+
+
+
 }
