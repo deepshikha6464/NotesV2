@@ -1,6 +1,8 @@
 package com.deeps.noteskotlinmvvmroomdb.Repository
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.deeps.noteskotlinmvvmroomdb.Database.UserDatabase
 import com.deeps.noteskotlinmvvmroomdb.Database.UserDatabase.Companion.instance
@@ -10,7 +12,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
 class UserRepository {
-
+    private  val TAG = "UserRepository"
     companion object {
         private var DBinstance: UserDatabase? = null
         fun initializeDB(context: Context): UserDatabase? {
@@ -19,6 +21,7 @@ class UserRepository {
         }
 
         fun insert(context: Context, user: User) {
+            Log.d(TAG, "insert: ")
             DBinstance = initializeDB(context)
             CoroutineScope(IO).launch { DBinstance?.getDao()?.insertUser(user) }
         }

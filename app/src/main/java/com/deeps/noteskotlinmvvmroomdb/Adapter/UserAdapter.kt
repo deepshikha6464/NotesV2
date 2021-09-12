@@ -19,8 +19,8 @@ class UserAdapter(private val context: Context,private var userList:ArrayList<Us
 
     override fun onBindViewHolder(holder: userViewHolder, position: Int) {
           val user:User=userList[position]
-       holder.name.text = user.name
-       holder.age.text = user.age.toString()
+          holder.name.text = user.name
+          holder.age.text = user.age.toString()
 
     }
 

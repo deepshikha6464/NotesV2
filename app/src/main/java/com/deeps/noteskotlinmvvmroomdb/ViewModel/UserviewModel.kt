@@ -7,9 +7,10 @@ import com.deeps.noteskotlinmvvmroomdb.Model.User
 import com.deeps.noteskotlinmvvmroomdb.Repository.UserRepository
 
 class UserviewModel: ViewModel() {
-
+    private  val TAG = "UserviewModel"
     fun insert(context:Context , user: User){
         UserRepository.insert(context,user)
+
     }
 
     fun getAllUser(context:Context): LiveData<List<User>>? {

@@ -3,6 +3,7 @@ package com.deeps.noteskotlinmvvmroomdb
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -19,7 +20,7 @@ import com.deeps.noteskotlinmvvmroomdb.ViewModel.UserviewModel
 
 class MainActivity : AppCompatActivity()
 {
-
+    private val TAG = "MainActivity"
     lateinit var viewModel:UserviewModel
     private lateinit var builder:AlertDialog.Builder
     private lateinit var save: Button
@@ -28,17 +29,21 @@ class MainActivity : AppCompatActivity()
     private lateinit var dialog:AlertDialog
     private lateinit var recyclerView:RecyclerView
     private lateinit var userAdapter:UserAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        recyclerView = findViewById(R.id.recyclerView)
+        userAdapter = UserAdapter(this, ArrayList<User>())
         viewModel = ViewModelProvider(this).get(UserviewModel::class.java)
 
         viewModel.getAllUser(applicationContext)?.observe(this, Observer {
+            Log.d(TAG, "onCreate:viewmodel "+it)
             userAdapter.setData(it as ArrayList<User>)
         })
         val fab: View = findViewById(R.id.fab)
-        recyclerView = findViewById(R.id.recyclerView)
-        userAdapter = UserAdapter(this, ArrayList<User>())
+
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager=LinearLayoutManager(this@MainActivity)
@@ -51,15 +56,15 @@ class MainActivity : AppCompatActivity()
     }
 
     private fun openDialog() {
-                builder=AlertDialog.Builder(this)
+        builder=AlertDialog.Builder(this)
         val itemView:View = LayoutInflater.from(applicationContext).inflate(R.layout.dialogue,null)
         dialog=builder.create()
         dialog.setView(itemView)
         name=itemView.findViewById(R.id.name1)
         age=itemView.findViewById(R.id.age1)
         save=itemView.findViewById(R.id.save)
-        save.setOnClickListener { view->
 
+        save.setOnClickListener { view->
             saveDataIntoDB()
         }
         dialog.show()
@@ -71,9 +76,11 @@ class MainActivity : AppCompatActivity()
         val getname= name.text.toString().trim()
         val getage= age.text.toString().trim()
 
-        if(!TextUtils.isEmpty(getname)&&!TextUtils.isEmpty(getage)) {
+        if(!TextUtils.isEmpty(getname)&&!TextUtils.isEmpty(getage))
+        {
 //            data insertion to room
             viewModel.insert(this,User(getname,Integer.parseInt(getage)))
+            Log.d(TAG, "saveDataIntoDB: ")
             dialog.dismiss()
 
         } else{
