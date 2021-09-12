@@ -72,6 +72,9 @@ class MainActivity : AppCompatActivity()
         val getage= age.text.toString().trim()
 
         if(!TextUtils.isEmpty(getname)&&!TextUtils.isEmpty(getage)) {
+//            data insertion to room
+            viewModel.insert(this,User(getname,Integer.parseInt(getage)))
+            dialog.dismiss()
 
         } else{
                        Toast.makeText(applicationContext,"Please enter text",Toast.LENGTH_SHORT).show()
