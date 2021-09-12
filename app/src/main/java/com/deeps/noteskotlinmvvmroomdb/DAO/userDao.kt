@@ -13,7 +13,7 @@ interface userDao {
 
 //    insert method decleration
     @Insert( onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user:User)
+     suspend fun insertUser(user:User)              // suspend as we are working with courtitens by which insert will work in background thread
 
 //    get method
     @Query("SELECT * from user ORDER BY id ASC")
