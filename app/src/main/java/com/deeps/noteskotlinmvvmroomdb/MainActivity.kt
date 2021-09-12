@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(UserviewModel::class.java)
+
+        viewModel.getAllUser(applicationContext)?.observe(this, Observer {
+            userAdapter.setData(it as ArrayList<User>)
+        })
         val fab: View = findViewById(R.id.fab)
         recyclerView = findViewById(R.id.recyclerView)
         userAdapter = UserAdapter(this, ArrayList<User>())
