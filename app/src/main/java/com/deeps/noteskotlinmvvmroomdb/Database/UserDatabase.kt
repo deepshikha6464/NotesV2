@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.deeps.noteskotlinmvvmroomdb.DAO.userDao
 import com.deeps.noteskotlinmvvmroomdb.Model.User
 import kotlinx.coroutines.internal.synchronized
 
@@ -12,7 +13,7 @@ import kotlinx.coroutines.internal.synchronized
 abstract class UserDatabase : RoomDatabase() {
 
 
-    abstract  fun getDao():Dao            //will call all the function of dao interface in repository
+    abstract  fun getDao():userDao            //will call all the function of dao interface in repository
 
     companion object {
         private const val DATABASE_NAME = "UserDatabase"
